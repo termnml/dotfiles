@@ -17,22 +17,22 @@ if [[ ! $# -gt 0 ]]; then
 fi
 
 # -A declares a associative list
-declare -A doing
+declare -A action
 
 # check what is to do and set flags
 while test $# -gt 0; do
 	case "$1" in
 		-a|--all)
-			doing[packages]=true
-			doing[configs]=true
+			action[packages]=true
+			action[configs]=true
 			shift
 			;;
 		-p|--packages)
-			doing[packages]=true
+			action[packages]=true
 			shift
 			;;
 		-c|--configs)
-			doing[configs]=true
+			action[configs]=true
 			shift
 			;;
 		*)
@@ -41,14 +41,14 @@ while test $# -gt 0; do
 done
 
 
-if [[ ${doing[packages]} = true ]]; then
+if [[ ${action[packages]} = true ]]; then
 	# packages from core/community
 	sudo pacman -Syu htop ranger neovim termite
 	# packages from AUR
 	pamac install nerd-fonts-source-code-pro 
 fi
 
-if [[ ${doing[configs]} = true ]]; then
+if [[ ${action[configs]} = true ]]; then
 	# nvim
 	TARGET='.config/nvim/init.vim'
 	if [[ ! -L $HOME/${TARGET} ]]; then
@@ -78,5 +78,7 @@ if [[ ${doing[configs]} = true ]]; then
 		echo "[already symlinked] ${TARGET}" 
 	fi
 
-	# ranger
+	#TODO
+	# use function for repeating lines (54-58)
+	# create assoziative list for after actions (like vundle) (60-64)
 fi
