@@ -109,5 +109,22 @@ if [[ ${action[configs]} = true ]]; then
 		echo "[already symlinked] ${TARGET}" 
 	fi
 	
-	
+	# i3
+	TARGET='.i3/config'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+		i3-msg restart
+	else
+		echo "[already symlinked] ${TARGET}" 
+	fi
+
+	# IEX/Elixir
+	TARGET='.iex.exs'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}" 
+	fi
 fi
