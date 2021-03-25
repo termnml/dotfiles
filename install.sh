@@ -82,4 +82,21 @@ if [[ ${action[configs]} = true ]]; then
 	else
 		echo "[already symlinked] ${TARGET}" 
 	fi
+
+	#ranger
+	TARGET='.config/ranger/rc.conf'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		# additional steps here
+		echo "[new symlink] ${TARGET}"
+	else
+		echo "[already symlinked] ${TARGET}" 
+	fi
+	TARGET='.config/ranger/scope.sh'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		# additional steps here
+		echo "[new symlink] ${TARGET}"
+	else
+		echo "[already symlinked] ${TARGET}" 
+	fi
+	
 fi
