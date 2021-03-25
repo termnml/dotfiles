@@ -7,7 +7,7 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [[ ! $# -gt 0 ]]; then
 	echo "use:"
 	echo "install.sh (-a|--all)"
-	echo " - installs package"
+	echo " - installs packages"
 	echo " - installs symlinks to configs"
 	echo "install.sh (-p|--packages)"
 	echo " - installs packages"
@@ -63,8 +63,8 @@ if [[ ${action[configs]} = true ]]; then
 	# nvim
 	TARGET='.config/nvim/init.vim'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		# additional steps here
 		echo "[new symlink] ${TARGET}"
+		# additional steps here
 		if [[ ! -d $HOME/.config/nvim/bundle/Vundle.vim ]]; then
 			git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
 			nvim +PluginClean +qall
@@ -77,8 +77,8 @@ if [[ ${action[configs]} = true ]]; then
 	# bash
 	TARGET='.bashrc'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		# additional steps here
 		echo "[new symlink] ${TARGET}"
+		# additional steps here
 	else
 		echo "[already symlinked] ${TARGET}" 
 	fi
@@ -86,15 +86,15 @@ if [[ ${action[configs]} = true ]]; then
 	#ranger
 	TARGET='.config/ranger/rc.conf'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		# additional steps here
 		echo "[new symlink] ${TARGET}"
+		# additional steps here
 	else
 		echo "[already symlinked] ${TARGET}" 
 	fi
 	TARGET='.config/ranger/scope.sh'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		# additional steps here
 		echo "[new symlink] ${TARGET}"
+		# additional steps here
 	else
 		echo "[already symlinked] ${TARGET}" 
 	fi
@@ -102,8 +102,8 @@ if [[ ${action[configs]} = true ]]; then
 	# Xresources
 	TARGET='.Xresources'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		# additional steps here
 		echo "[new symlink] ${TARGET}"
+		# additional steps here
 		xrdb ~/.Xresources
 	else
 		echo "[already symlinked] ${TARGET}" 
