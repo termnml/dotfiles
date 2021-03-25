@@ -43,20 +43,28 @@ done
 
 if [[ ${action[packages]} = true ]]; then
 	# packages from core/community
-	sudo pacman -Syu htop ranger neovim termite
+	sudo pacman -Syu htop ranger neovim termite bind
 	# packages from AUR
 	pamac install nerd-fonts-source-code-pro 
 fi
 
+SET_SYMLINK () {
+	# returns if symlink was created and action_after should be called
+	if [[ ! -L $HOME/$1 ]]; then
+		if [[ -f $HOME/$1 ]]; then
+			mv $HOME/$1 $HOME/$1_pre_dotfile
+		fi
+		ln -s ${BASEDIR}/$1 $HOME/$1
+		echo "symlink_created"
+	fi
+}
+
 if [[ ${action[configs]} = true ]]; then
 	# nvim
 	TARGET='.config/nvim/init.vim'
-	if [[ ! -L $HOME/${TARGET} ]]; then
-		if [[ -f $HOME/${TARGET} ]]; then
-			mv $HOME/${TARGET} $HOME/${TARGET}_pre_dotfile
-		fi
-		ln -s ${BASEDIR}/${TARGET} $HOME/${TARGET}
-		# additional steps
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		# additional steps here
+		echo "[new symlink] ${TARGET}"
 		if [[ ! -d $HOME/.config/nvim/bundle/Vundle.vim ]]; then
 			git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
 			nvim +PluginClean +qall
@@ -68,17 +76,10 @@ if [[ ${action[configs]} = true ]]; then
 
 	# bash
 	TARGET='.bashrc'
-	if [[ ! -L $HOME/${TARGET} ]]; then
-		if [[ -f $HOME/${TARGET} ]]; then
-			mv $HOME/${TARGET} $HOME/${TARGET}_pre_dotfile
-		fi
-		ln -s ${BASEDIR}/${TARGET} $HOME/${TARGET}
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
 		# additional steps here
+		echo "[new symlink] ${TARGET}"
 	else
 		echo "[already symlinked] ${TARGET}" 
 	fi
-
-	#TODO
-	# use function for repeating lines (54-58)
-	# create assoziative list for after actions (like vundle) (60-64)
 fi
