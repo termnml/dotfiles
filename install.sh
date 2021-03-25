@@ -98,5 +98,16 @@ if [[ ${action[configs]} = true ]]; then
 	else
 		echo "[already symlinked] ${TARGET}" 
 	fi
+
+	# Xresources
+	TARGET='.Xresources'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		# additional steps here
+		echo "[new symlink] ${TARGET}"
+		xrdb ~/.Xresources
+	else
+		echo "[already symlinked] ${TARGET}" 
+	fi
+	
 	
 fi
