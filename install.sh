@@ -45,7 +45,7 @@ if [[ ${action[packages]} = true ]]; then
 	# packages from core/community
 	sudo pacman -Syu htop ranger neovim termite bind
 	# packages from AUR
-	pamac install nerd-fonts-source-code-pro 
+	pamac install nerd-fonts-source-code-pro mimeo xdg-utils-mimeo
 fi
 
 SET_SYMLINK () {
@@ -71,7 +71,14 @@ if [[ ${action[configs]} = true ]]; then
 			nvim +PluginInstall +qall
 		fi
 	else
-		echo "[already symlinked] ${TARGET}" 
+		echo "[already symlinked] ${TARGET}"
+	fi
+	TARGET='.local/share/applications/nvim.desktop'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}"
 	fi
 
 	# bash
@@ -80,7 +87,7 @@ if [[ ${action[configs]} = true ]]; then
 		echo "[new symlink] ${TARGET}"
 		# additional steps here
 	else
-		echo "[already symlinked] ${TARGET}" 
+		echo "[already symlinked] ${TARGET}"
 	fi
 
 	#ranger
@@ -89,15 +96,25 @@ if [[ ${action[configs]} = true ]]; then
 		echo "[new symlink] ${TARGET}"
 		# additional steps here
 	else
-		echo "[already symlinked] ${TARGET}" 
+		echo "[already symlinked] ${TARGET}"
 	fi
 	TARGET='.config/ranger/scope.sh'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
 		echo "[new symlink] ${TARGET}"
 		# additional steps here
 	else
-		echo "[already symlinked] ${TARGET}" 
+		echo "[already symlinked] ${TARGET}"
 	fi
+
+	# mimetypes (mimeo replace default xdg-open)
+	TARGET='.config/mimeapps.list'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+
 
 	# Xresources
 	TARGET='.Xresources'
@@ -106,9 +123,9 @@ if [[ ${action[configs]} = true ]]; then
 		# additional steps here
 		xrdb ~/.Xresources
 	else
-		echo "[already symlinked] ${TARGET}" 
+		echo "[already symlinked] ${TARGET}"
 	fi
-	
+
 	# i3
 	TARGET='.i3/config'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
@@ -116,7 +133,7 @@ if [[ ${action[configs]} = true ]]; then
 		# additional steps here
 		i3-msg restart
 	else
-		echo "[already symlinked] ${TARGET}" 
+		echo "[already symlinked] ${TARGET}"
 	fi
 
 	# IEX/Elixir
@@ -125,6 +142,6 @@ if [[ ${action[configs]} = true ]]; then
 		echo "[new symlink] ${TARGET}"
 		# additional steps here
 	else
-		echo "[already symlinked] ${TARGET}" 
+		echo "[already symlinked] ${TARGET}"
 	fi
 fi

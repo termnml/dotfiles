@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Neovim
+Comment= Open neovim in termite
+Exec=termite -e neovim
+Icon=utilities-terminal (or whatever icon you prefer)
+Terminal=false
+Type=Application
+Categories=Application;

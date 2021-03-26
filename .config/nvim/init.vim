@@ -72,6 +72,10 @@ hi LineNr term=underline ctermfg=8
 hi VertSplit term=bold ctermfg=0
 "hi Visual term=reverse cterm=reverse ctermbg=0 gui=reverse guifg=Grey80 guibg=fg
 set guicursor=c-sm:block,n-v-i-ci-ve:ver25,r-cr-o:hor20
+" Command for findig trailing whitespaces
+hi ExtraWhitespace ctermbg=red guibg=red
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
 
 let g:airline_theme='distinguished'
 let g:airline_powerline_fonts = 1
