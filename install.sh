@@ -115,7 +115,6 @@ if [[ ${action[configs]} = true ]]; then
 		echo "[already symlinked] ${TARGET}"
 	fi
 
-
 	# Xresources
 	TARGET='.Xresources'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
@@ -132,6 +131,15 @@ if [[ ${action[configs]} = true ]]; then
 		echo "[new symlink] ${TARGET}"
 		# additional steps here
 		i3-msg restart
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+
+	# termite
+	TARGET='.config/termite/config'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
 	else
 		echo "[already symlinked] ${TARGET}"
 	fi
