@@ -137,6 +137,9 @@ if [[ ${action[configs]} = true ]]; then
 
 	# termite
 	TARGET='.config/termite/config'
+	if [[ ! -d ~/.config/termite ]]; then
+		mkdir ~/.config/termite
+	fi
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
 		echo "[new symlink] ${TARGET}"
 		# additional steps here
