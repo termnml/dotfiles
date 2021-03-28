@@ -67,7 +67,6 @@ if [[ ${action[configs]} = true ]]; then
 		# additional steps here
 		if [[ ! -d $HOME/.config/nvim/bundle/Vundle.vim ]]; then
 			git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
-			nvim +PluginClean +qall
 			nvim +PluginInstall +qall
 		fi
 	else

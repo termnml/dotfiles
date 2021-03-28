@@ -11,11 +11,13 @@ image/jpeg=viewnior.desktop;gpicview.desktop;
 image/png=viewnior.desktop;gpicview.desktop;
 message/rfc822=userapp-Thunderbird.desktop;
 text/html=userapp-Pale Moon.desktop;
+x-scheme-handler/about=google-chrome.desktop;
 x-scheme-handler/chrome=userapp-Pale Moon.desktop;
 x-scheme-handler/ftp=userapp-Pale Moon.desktop;
-x-scheme-handler/http=userapp-Pale Moon.desktop;
-x-scheme-handler/https=userapp-Pale Moon.desktop;
+x-scheme-handler/http=google-chrome.desktop;userapp-Pale Moon.desktop;
+x-scheme-handler/https=google-chrome.desktop;userapp-Pale Moon.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird.desktop;
+x-scheme-handler/unknown=google-chrome.desktop;
 [Added Associations]
 application/pdf=epdfview.desktop;
 application/x-bittorrent=deluge.desktop;
