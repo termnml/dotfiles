@@ -105,7 +105,10 @@ alias more=less
 alias vim='nvim'
 alias oldvim='\vim'
 alias xup='xrdb ~/.Xresources'
+# restart service for VM's
 alias scale='systemctl restart vmtoolsd'
+# fix pipesymbol when comming back from ranger
+alias ranger='ranger; echo -en "\e[?25h"'
 
 xhost +local:root > /dev/null 2>&1
 
@@ -155,3 +158,6 @@ LS_COLORS=$LS_COLORS:'tw=00;33:ow=01;33:'; export LS_COLORS
 export VISUAL=nvim;
 export EDITOR=nvim;
 export TERM=xterm-256color
+
+# last command !   # assure pipesymbol
+echo -en "\e[?25h"
