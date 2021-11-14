@@ -9,6 +9,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'preservim/nerdtree'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'rafi/awesome-vim-colorschemes'
 
 Plugin 'PeterRincker/vim-searchlight'
 Plugin 'jiangmiao/auto-pairs'
@@ -37,15 +38,15 @@ set showbreak=»
 "set showmatch
 set textwidth=100
 "set visualbell
- 
+
 set hlsearch
 "set smartcase
 "set ignorecase
 set incsearch
- 
+
 set autoindent
 set shiftwidth=2
-set smartindent 
+set smartindent
 set smarttab
 set softtabstop=2
 
@@ -58,18 +59,18 @@ syntax on
 " sets the colors to base16 from terminal
 set t_Co=256
 "colorscheme peachpuff
-colorscheme delek
+colorscheme molokai
 set background=dark
 " some colorscheme mods TODO: put in own colorscheme
 "		 To customize a colorscheme use another name, e.g.
-"		 ~/.vim/colors/mine.vim", and use :runtime to load  
-"		 the original colorscheme:  
+"		 ~/.vim/colors/mine.vim", and use :runtime to load
+"		 the original colorscheme:
 "		 runtime colors/evening.vim
 "		 hi Statement ctermfg=Blue guifg=Blue
 hi Search term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow
 hi MatchParen ctermfg=0 ctermbg=13 guibg=LightMagenta
-hi LineNr term=underline ctermfg=8
-hi VertSplit term=bold ctermfg=0
+"hi LineNr term=underline ctermfg=8
+"hi VertSplit term=bold ctermfg=0
 "hi Visual term=reverse cterm=reverse ctermbg=0 gui=reverse guifg=Grey80 guibg=fg
 set guicursor=c-sm:block,n-v-i-ci-ve:ver25,r-cr-o:hor20
 " Command for findig trailing whitespaces
