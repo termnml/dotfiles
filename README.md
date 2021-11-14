@@ -9,7 +9,7 @@ install.sh (-p|--packages)
  - installs packages
 install.sh (-c|--configs)
  - installs symlinks to configs
-install.sh (-cb|--configs-basic)"
- - installs symlinks to the basic configs"
- - like nvim, bash, elixir"
+install.sh (-cb|--configs-basic)
+ - installs symlinks to the basic configs
+ - like nvim, bash, elixir
 ```
