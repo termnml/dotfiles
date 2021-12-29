@@ -161,3 +161,5 @@ export TERM=xterm-256color
 
 # last command !   # assure pipesymbol
 echo -en "\e[?25h"
+
+. /opt/asdf-vm/asdf.sh
