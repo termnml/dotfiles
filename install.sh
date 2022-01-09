@@ -16,6 +16,9 @@ if [[ ! $# -gt 0 ]]; then
 	echo "install.sh (-cb|--configs-basic)"
 	echo " - installs symlinks to the basic configs"
 	echo " - like nvim, bash, elixir"
+	echo "install.sh (-am|--all-mate)"
+	echo " - installs packages for mate+i3 setup"
+	echo " - adds configuration basic and new like alacritty"
 	exit 0
 fi
 
@@ -43,6 +46,17 @@ while test $# -gt 0; do
 			action[configs_basic]=true
 			shift
 			;;
+		-ci3|--configs-i3)
+			action[configs_i3]=true
+			shift
+			;;
+		-am|--all-mate)
+			action[packages_mate]=true
+			action[configs_basic]=true
+			action[configs_mate]=true
+			action[configs_i3]=true
+			shift
+			;;
 		*)
 			;;
 	esac
@@ -54,6 +68,13 @@ if [[ ${action[packages]} = true ]]; then
 	sudo pacman -Syu htop ranger neovim termite bind
 	# packages from AUR
 	pamac install nerd-fonts-source-code-pro mimeo xdg-utils-mimeo
+fi
+
+if [[ ${action[packages_mate]} = true ]]; then
+	# packages from core/community
+	sudo pacman -Syu htop ranger neovim alacritty xdotool zensu i3-wm wireshark-qt
+	# packages from AUR
+	pamac install nerd-fonts-source-code-pro
 fi
 
 SET_SYMLINK () {
@@ -75,21 +96,6 @@ SET_SYMLINK () {
 }
 
 if [[ ${action[configs]} = true ]]; then
-	#ranger
-	TARGET='.config/ranger/rc.conf'
-	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		echo "[new symlink] ${TARGET}"
-		# additional steps here
-	else
-		echo "[already symlinked] ${TARGET}"
-	fi
-	TARGET='.config/ranger/scope.sh'
-	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		echo "[new symlink] ${TARGET}"
-		# additional steps here
-	else
-		echo "[already symlinked] ${TARGET}"
-	fi
 
 	# mimetypes (mimeo replace default xdg-open)
 	TARGET='.config/mimeapps.list'
@@ -110,16 +116,6 @@ if [[ ${action[configs]} = true ]]; then
 		echo "[already symlinked] ${TARGET}"
 	fi
 
-	# i3
-	TARGET='.i3/config'
-	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		echo "[new symlink] ${TARGET}"
-		# additional steps here
-		i3-msg restart
-	else
-		echo "[already symlinked] ${TARGET}"
-	fi
-
 	# termite
 	TARGET='.config/termite/config'
 	if [[ ! -d ~/.config/termite ]]; then
@@ -135,7 +131,35 @@ if [[ ${action[configs]} = true ]]; then
 fi
 
 
+if [[ ${action[configs_i3]} = true ]]; then
+	# i3
+	TARGET='.config/i3/config'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+		i3-msg restart
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+fi
+
 if [[ ${action[configs_basic]} = true ]]; then
+	#ranger
+	TARGET='.config/ranger/rc.conf'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+	TARGET='.config/ranger/scope.sh'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+
 	# nvim
 	TARGET='.config/nvim/init.vim'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
@@ -173,4 +197,14 @@ if [[ ${action[configs_basic]} = true ]]; then
 	else
 		echo "[already symlinked] ${TARGET}"
 	fi
+
+	# alacritty
+	TARGET='.config/alacritty/alacritty.yml'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+
 fi
