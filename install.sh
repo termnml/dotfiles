@@ -67,14 +67,14 @@ if [[ ${action[packages]} = true ]]; then
 	# packages from core/community
 	sudo pacman -Syu htop ranger neovim termite bind
 	# packages from AUR
-	pamac install nerd-fonts-source-code-pro mimeo xdg-utils-mimeo
+	pamac install nerd-fonts-source-code-pro mimeo xdg-utils-mimeo asdf-vm
 fi
 
 if [[ ${action[packages_mate]} = true ]]; then
 	# packages from core/community
 	sudo pacman -Syu htop ranger neovim alacritty xdotool zensu i3-wm wireshark-qt
 	# packages from AUR
-	pamac install nerd-fonts-source-code-pro
+	pamac install nerd-fonts-source-code-pro asdf-vm
 fi
 
 SET_SYMLINK () {
