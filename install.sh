@@ -72,7 +72,7 @@ fi
 
 if [[ ${action[packages_mate]} = true ]]; then
 	# packages from core/community
-	sudo pacman -Syu htop ranger neovim alacritty xdotool zensu i3-wm wireshark-qt
+	sudo pacman -Syu htop ranger neovim alacritty xdotool zensu i3-wm wireshark-qt bash-completion
 	# packages from AUR
 	pamac install nerd-fonts-source-code-pro asdf-vm
 fi
