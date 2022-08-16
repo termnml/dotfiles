@@ -213,7 +213,7 @@ export EDITOR=nvim
 export VISUAL=nvim;
 
 bin_in_path && \
-alias vim='nvim' & \
+alias vim='nvim' && \
 alias oldvim='\vim'
 
 # colors
