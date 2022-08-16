@@ -9,7 +9,7 @@ set $mod Mod4
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 2
-default_floating_border normal
+default_floating_border none
 
 # Hide borders
 hide_edge_borders none
@@ -35,8 +35,11 @@ bindsym $mod+Shift+Return exec --no-startup-id alacritty --class floating
 # kill focused window
 bindsym $mod+c kill
 
+# use flameshot for screenshots
+bindsym Print exec flameshot gui
+
 # start program launcher
-#bindsym $mod+d exec --no-startup-id dmenu_recency
+#bindsym $mod+p exec --no-startup-id dmenu_recency
 
 # launch categorized menu
 #bindsym $mod+z exec --no-startup-id morc_menu
@@ -60,18 +63,29 @@ bindsym $mod+c kill
 # Start Applications
 # bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec --no-startup-id brave
-# bindsym $mod+F3 exec pcmanfm
+bindsym $mod+F3 exec /home/termnml/bin/velocidrone/Launcher
 # bindsym $mod+F3 exec ranger
 # bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 # bindsym $mod+F5 exec terminal -e 'mocp'
-# bindsym $mod+t exec --no-startup-id pkill picom
+#
+# picom-trans
+# -c    current
+# -t    toggle transparency
+bindsym $mod+t exec --no-startup-id picom-trans -c -t
+
 # bindsym $mod+Ctrl+t exec --no-startup-id picom -b
-bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+#bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 # bindsym Print exec --no-startup-id i3-scrot
 # bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 # bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 #bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 # bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+
+# screen orientation
+bindsym $mod+Down exec --no-startup-id xrandr --output eDP-1 --rotate normal
+bindsym $mod+Up exec --no-startup-id xrandr --output eDP-1 --rotate inverted
+bindsym $mod+Left exec --no-startup-id xrandr --output eDP-1 --rotate right
+bindsym $mod+Right exec --no-startup-id xrandr --output eDP-1 --rotate left
 
 bindsym $mod+Shift+w exec --no-startup-id "gksu wireshark"
 
@@ -81,13 +95,13 @@ bindsym $mod+Shift+w exec --no-startup-id "gksu wireshark"
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+#bindsym $mod+Left focus left
+#bindsym $mod+Down focus down
+#bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -123,7 +137,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -223,11 +237,16 @@ for_window [class="Xfburn"] floating enable
 # TML added
 for_window [title="Control Center"] floating enabled
 for_window [title="YAD Settings"] floating enabled
+for_window [class="YAD"] floating enabled
 for_window [class="org.remmina.Remmina"] floating enabled border normal
+for_window [title="Bluetooth Devices"] floating enabed
+
+for_window [class="mapmap"] floating border normal enabed
 
 # enable startup in float from exec by setting the x11 class to floating
 # many apps support '--class floating' for setting the x11 class (the instance get renamed)
 for_window [instance="floating"] floating enabled
+for_window [instance="yad"] floating enabled
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -243,18 +262,14 @@ bindsym $mod+Shift+r restart
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+set $mode_system (l)ock, (Return|s)uspend
+
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+    bindsym l exec --no-startup-id i3lock -i /home/termnml/Pictures/lock.png -f, mode "default"
+    bindsym s exec --no-startup-id i3lock -i /home/termnml/Pictures/lock.png -f && systemctl suspend, mode "default"
 
     # exit system mode: "Enter" or "Escape"
-    bindsym Return mode "default"
+    bindsym Return exec --no-startup-id i3lock -i /home/termnml/Pictures/lock.png && systemctl suspend, mode "default"
     bindsym Escape mode "default"
 }
 

@@ -1,5 +1,7 @@
 #!/bin/bash
-
+####
+## Author: Felix Marx <termnml@gmail.com>
+####
 # get absolute path to dotfiles folder
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -28,6 +30,8 @@ declare -A action
 # check what is to do and set flags
 while test $# -gt 0; do
 	case "$1" in
+		-h|--help)
+			echo ""
 		-a|--all)
 			action[packages]=true
 			action[configs]=true
@@ -58,6 +62,21 @@ while test $# -gt 0; do
 			shift
 			;;
 		*)
+      echo "use:"
+      echo "install.sh (-a|--all)"
+      echo " - installs packages"
+      echo " - installs symlinks to configs"
+      echo "install.sh (-p|--packages)"
+      echo " - installs packages"
+      echo "install.sh (-c|--configs)"
+      echo " - installs symlinks to all configs"
+      echo "install.sh (-cb|--configs-basic)"
+      echo " - installs symlinks to the basic configs"
+      echo " - like nvim, bash, elixir"
+      echo "install.sh (-am|--all-mate)"
+      echo " - installs packages for mate+i3 setup"
+      echo " - adds configuration basic and new like alacritty"
+			echo
 			;;
 	esac
 done
@@ -65,7 +84,7 @@ done
 
 if [[ ${action[packages]} = true ]]; then
 	# packages from core/community
-	sudo pacman -Syu htop ranger neovim termite bind
+	sudo pacman -Syu htop ranger neovim alacritty bind
 	# packages from AUR
 	pamac install nerd-fonts-source-code-pro mimeo xdg-utils-mimeo asdf-vm
 fi
@@ -77,6 +96,15 @@ if [[ ${action[packages_mate]} = true ]]; then
 	pamac install nerd-fonts-source-code-pro asdf-vm
 fi
 
+logit () {
+	# set color
+	echo ""
+	echo -e "\e[32;41m[PASS]\e[0m"
+	echo -e "\n\e[36;40m[symlink]\e[0;30;1m=\e[40;32;1m[PASS]\e[0m \e[1m[~/.bashrc] \e[32mcorrect symlink \e[0m\e[1m-> [~/dotfiles/.bashrc]\e[0m\n"
+	# unset color
+	echo ""
+}
+
 SET_SYMLINK () {
 	# get parentdir of file
 	PARENT_DIR="$(dirname $HOME/$1)"
@@ -85,6 +113,8 @@ SET_SYMLINK () {
 		# create parent-dir if not present
 		if [[ ! -d ${PARENT_DIR} ]]; then
 			mkdir -p ${PARENT_DIR}
+		else
+			logit "[PASS]:${PARENT_DIR}"
 		fi
 		# check if file already exists and backup
 		if [[ -f $HOME/$1 ]]; then
@@ -121,6 +151,15 @@ if [[ ${action[configs]} = true ]]; then
 	if [[ ! -d ~/.config/termite ]]; then
 		mkdir ~/.config/termite
 	fi
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+
+	# tmux
+	TARGET='.tmux.conf'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
 		echo "[new symlink] ${TARGET}"
 		# additional steps here

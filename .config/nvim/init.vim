@@ -59,7 +59,8 @@ syntax on
 " sets the colors to base16 from terminal
 set t_Co=256
 "colorscheme peachpuff
-colorscheme molokai
+"colorscheme molokai
+colorscheme sonokai
 set background=dark
 " some colorscheme mods TODO: put in own colorscheme
 "		 To customize a colorscheme use another name, e.g.

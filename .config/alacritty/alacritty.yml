@@ -29,9 +29,9 @@ window:
   # Number of lines/columns (not pixels) in the terminal. The number of columns
   # must be at least `2`, while using a value of `0` for columns and lines will
   # fall back to the window manager's recommended size.
-  #dimensions:
-  #  columns: 0
-  #  lines: 0
+  dimensions:
+    columns: 100
+    lines: 34
 
   # Window position (changes require restart)
   #
@@ -52,8 +52,6 @@ window:
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
 
-  # Window decorations
-  #
   # Values for `decorations`:
   #     - full: Borders and title bar
   #     - none: Neither borders nor title bar
@@ -194,34 +192,62 @@ colors:
 # Begin
 # Molokia Colorscheme
 # Source: https://clcode.net/articles/color-schemes.md
-
-  # Default colors
-  primary:
-    background: '#1B1D1E'
-    foreground: '#F8F8F2'
-  # Normal colors
-  normal:
-    black:   '#333333'
-    red:     '#C4265E'
-    green:   '#86B42B'
-    yellow:  '#B3B42B'
-    blue:    '#6A7EC8'
-    magenta: '#8C6BC8'
-    cyan:    '#56ADBC'
-    white:   '#E3E3DD'
-  # Bright colors
-  bright:
-    black:   '#666666'
-    red:     '#F92672'
-    green:   '#A6E22E'
-    yellow:  '#E2E22E'
-    blue:    '#819AFF'
-    magenta: '#AE81FF'
-    cyan:    '#66D9EF'
-    white:   '#F8F8F2'
-
+#
+#  # Default colors
+#  primary:
+#    background: '#1B1D1E'
+#    foreground: '#F8F8F2'
+#  # Normal colors
+#  normal:
+#    black:   '#333333'
+#    red:     '#C4265E'
+#    green:   '#86B42B'
+#    yellow:  '#B3B42B'
+#    blue:    '#6A7EC8'
+#    magenta: '#8C6BC8'
+#    cyan:    '#56ADBC'
+#    white:   '#E3E3DD'
+#  # Bright colors
+#  bright:
+#    black:   '#666666'
+#    red:     '#F92672'
+#    green:   '#A6E22E'
+#    yellow:  '#E2E22E'
+#    blue:    '#819AFF'
+#    magenta: '#AE81FF'
+#    cyan:    '#66D9EF'
+#    white:   '#F8F8F2'
 # End
 # Molokia Colorscheme
+
+# Begin
+# OneHalf Dark
+# Source: https://github.com/sonph/onehalf/tree/master/alacritty
+  primary:
+    #    background: '0x282c34'
+    # replaced from Molokai
+    background: '0x1b1d1e'
+    foreground: '0xdcdfe4'
+
+  normal:
+    black: '0x282c34'
+    red: '0xe06c75'
+    green: '0x98c379'
+    yellow: '0xe5c07b'
+    blue: '0x61afef'
+    magenta: '0xc678dd'
+    cyan: '0x56b6c2'
+    white: '0xdcdfe4'
+
+  bright:
+    black: '0x282c34'
+    red: '0xe06c75'
+    green: '0x98c379'
+    yellow: '0xe5c07b'
+    blue: '0x61afef'
+    magenta: '0xc678dd'
+    cyan: '0x56b6c2'
+    white: '0xdcdfe4'
 
   # Cursor colors
   #
@@ -437,7 +463,7 @@ cursor:
 
   # Thickness of the cursor relative to the cell width as floating point number
   # from `0.0` to `1.0`.
-  thickness: 0.2
+  thickness: 0.3
 
 # Live config reload (changes require restart)
 #live_config_reload: true
@@ -476,7 +502,7 @@ cursor:
   #triple_click: { threshold: 300 }
 
   # If this is `true`, the cursor is temporarily hidden when typing.
-  #hide_when_typing: false
+  hide_when_typing: true
 
 # Regex hints
 #

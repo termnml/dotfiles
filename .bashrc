@@ -1,6 +1,7 @@
 #
 # ~/.bashrc
 #
+## Manjaro Default
 
 [[ $- != *i* ]] && return
 
@@ -59,8 +60,6 @@ match_lhs=""
 	&& match_lhs=$(dircolors --print-database)
 [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
 
-# check if shell is running nested from ranger
-_ranger=$(echo $RANGER_LEVEL 2>/dev/null)
 
 if ${use_color} ; then
 	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
@@ -76,8 +75,6 @@ if ${use_color} ; then
 		PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
 	else
 		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
-		# prepend ranger-level when present
-		PS1=${_ranger:+'\[\033[01;34m\][R]'}${PS1}
 	fi
 
 	alias c='clear'
@@ -96,22 +93,7 @@ fi
 
 unset use_color safe_term match_lhs sh
 
-alias cp="cp -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias np='nano -w PKGBUILD'
-alias more=less
-
-alias vim='nvim'
-alias oldvim='\vim'
-alias xup='xrdb ~/.Xresources'
-# restart service for VM's
-alias scale='systemctl restart vmtoolsd'
-# fix pipesymbol when comming back from ranger
-alias ranger='ranger; echo -en "\e[?25h"'
-
 xhost +local:root > /dev/null 2>&1
-
 complete -cf sudo
 
 # Bash won't get SIGWINCH if another process is in the foreground.
@@ -152,14 +134,133 @@ ex ()
   fi
 }
 
-# avoid backgroundcolor of ls
-LS_COLORS=$LS_COLORS:'tw=00;33:ow=01;33:'; export LS_COLORS
 
-export VISUAL=nvim;
-export EDITOR=nvim;
 export TERM=xterm-256color
 
-# last command !   # assure pipesymbol
-echo -en "\e[?25h"
+###
+# prompt
+###
+PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \w\[\033[01;32m\]]\$\[\033[00m\] '
 
-. /opt/asdf-vm/asdf.sh
+###
+# ranger,lf marker
+###
+## deprecated - see fma-deb
+# - check if shell is running nested from ranger
+_ranger=$(echo $RANGER_LEVEL 2>/dev/null)
+_lf=$(echo $LF_LEVEL 2>/dev/null)
+# - prepend if ENV-Vars set
+PS1=${_ranger:+'\[\033[01;34m\][R]'}${PS1}
+PS1=${_lf:+'\[\033[01;34m\][LF]'}${PS1}
+
+###
+# lf - dir changer
+###
+# set path to last in flf when exiting
+# source: https://sandeep.ramgolam.com/blog/lf
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
+
+################# core ################
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -h'
+alias np='nano -w PKGBUILD'
+alias more=less
+
+# restart service for VM's
+alias vwmtool_restart='systemctl restart vmtoolsd'
+# fix pipesymbol when comming back from ranger
+#alias ranger='ranger; echo -en "\e[?25h"'
+
+alias q='exit'
+alias t='tmux'
+alias s='sudo'
+alias si='sudo -i'
+alias c='clear'
+
+###
+# less
+###
+export LESS='-R '
+
+###
+# ls
+###
+# avoid backgroundcolor of ls
+LS_COLORS=$LS_COLORS:'tw=00;33:ow=01;33:'; export LS_COLORS
+# remap standard ls
+alias ls='ls --color=auto'
+alias ll='ls -l --color=auto'
+alias la='ls -la --color=auto'
+
+###
+# grep
+###
+alias grep='grep --colour=auto'
+alias egrep='egrep --colour=auto'
+alias fgrep='fgrep --colour=auto'
+
+###
+# bash vi-mode
+###
+# start vi-mode with ESC
+set -o vi
+
+# echo | on startup
+# fixes missing pipesymbol (ranger)
+#echo -en "\e[?25h"
+
+###
+# nvim
+###
+# for editor like lf, ranger
+export EDITOR=nvim
+export VISUAL=nvim;
+
+alias vim='nvim'
+alias oldvim='\vim'
+
+# colors
+###
+# -> https://askubuntu.com/a/677202
+colors() {
+  T='gYw'   # The test text
+  echo -e "usage: echo -e \"\\\e[1;40mFoo_Bar\""
+  echo -e "       \e[1;40mFoo_Bar\e[0m"
+  echo -e "bg-color:       black    red    green   yellow   blue   purple   cyan    grey";
+  echo -e "                 40m     41m     42m     43m     44m     45m     46m     47m";
+  for FGs in '    m' '   1m' '  30m' '1;30m' '  31m' '1;31m' '  32m' \
+    '1;32m' '  33m' '1;33m' '  34m' '1;34m' '  35m' '1;35m' \
+    '  36m' '1;36m' '  37m' '1;37m';
+  do
+    FG=${FGs// /}
+    echo -en " $FGs \033[$FG  $T  "
+    for BG in 40m 41m 42m 43m 44m 45m 46m 47m;
+    do
+      echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m";
+    done
+    echo;
+  done
+}
+# alias for test
+alias ccol='c && source ~/.bashrc && colors'
+
+###
+# local modifications
+###
+if [[ -f ~/.bashrc_local ]] ; then
+	. ~/.bashrc_local
+fi
+
