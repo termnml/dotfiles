@@ -1,37 +1,11 @@
 #
 # ~/.bashrc
-#
-## Manjaro Default
+# Source: https://github.com/termnml/dotfiles/blob/main/.bashrc
 
+# test if shell is interactive
 [[ $- != *i* ]] && return
 
-colors() {
-	local fgc bgc vals seq0
-
-	printf "Color escapes are %s\n" '\e[${value};...;${value}m'
-	printf "Values 30..37 are \e[33mforeground colors\e[m\n"
-	printf "Values 40..47 are \e[43mbackground colors\e[m\n"
-	printf "Value  1 gives a  \e[1mbold-faced look\e[m\n\n"
-
-	# foreground colors
-	for fgc in {30..37}; do
-		# background colors
-		for bgc in {40..47}; do
-			fgc=${fgc#37} # white
-			bgc=${bgc#40} # black
-
-			vals="${fgc:+$fgc;}${bgc}"
-			vals=${vals%%;}
-
-			seq0="${vals:+\e[${vals}m}"
-			printf "  %-9s" "${seq0:-(default)}"
-			printf " ${seq0}TEXT\e[m"
-			printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
-		done
-		echo; echo
-	done
-}
-
+# test if completions is available 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
 # Change the window title of X terminals
@@ -71,11 +45,7 @@ if ${use_color} ; then
 		fi
 	fi
 
-	if [[ ${EUID} == 0 ]] ; then
-		PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
-	else
-		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
-	fi
+	PS1='\[\033[01;32m\][\u@\h][\[\033[01;37m\]\w\[\033[01;32m\]]\n» \[\033[00m\]\$ '
 
 	alias c='clear'
 	alias ls='ls -l --color=auto'
@@ -83,12 +53,8 @@ if ${use_color} ; then
 	alias egrep='egrep --colour=auto'
 	alias fgrep='fgrep --colour=auto'
 else
-	if [[ ${EUID} == 0 ]] ; then
-		# show root@ when we don't have colors
-		PS1='\u@\h \W \$ '
-	else
-		PS1='\u@\h \w \$ '
-	fi
+	# no color escape-codes when not supported
+	PS1='[\u@\h][\w]\n» \$ '
 fi
 
 unset use_color safe_term match_lhs sh
@@ -134,19 +100,29 @@ ex ()
   fi
 }
 
+###
+# aliases
+###
+# ->  check if bins in path
+# Source: https://stackoverflow.com/a/53798785/1331501
+# Source: https://wiki.bash-hackers.org/howto/redirection_tutorial#a_note_on_style
+# returns 0 when bin found
+function bin_in_path {
+  # redirect stdout and stderr to /dev/null
+  builtin type -P "$1" > /dev/null 2>&1
+  [[ $? -ne 0 ]] && return 1
+  if [[ $# -gt 1 ]]; then
+    shift  # We've just checked the first one
+    bin_in_path "$@"
+  fi
+}
 
 export TERM=xterm-256color
 
 ###
-# prompt
-###
-PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \w\[\033[01;32m\]]\$\[\033[00m\] '
-
-###
 # ranger,lf marker
 ###
-## deprecated - see fma-deb
-# - check if shell is running nested from ranger
+# - check if shell is running nested from ranger or lf
 _ranger=$(echo $RANGER_LEVEL 2>/dev/null)
 _lf=$(echo $LF_LEVEL 2>/dev/null)
 # - prepend if ENV-Vars set
@@ -185,15 +161,22 @@ alias vwmtool_restart='systemctl restart vmtoolsd'
 #alias ranger='ranger; echo -en "\e[?25h"'
 
 alias q='exit'
-alias t='tmux'
-alias s='sudo'
-alias si='sudo -i'
 alias c='clear'
+
+bin_in_path tmux && \
+alias t='tmux'
+
+bin_in_path docker && \
+alias docker-compose="docker compose"
 
 ###
 # less
 ###
-export LESS='-R '
+export LESS=' -R -M '
+# ->  less - highlight
+#   - https://unix.stackexchange.com/a/139787/88645
+bin_in_path src-hilite-lesspipe.sh && \
+alias lessh='LESSOPEN="| src-hilite-lesspipe.sh %s" less -M -R '
 
 ###
 # ls
@@ -229,7 +212,8 @@ set -o vi
 export EDITOR=nvim
 export VISUAL=nvim;
 
-alias vim='nvim'
+bin_in_path && \
+alias vim='nvim' & \
 alias oldvim='\vim'
 
 # colors
@@ -263,4 +247,3 @@ alias ccol='c && source ~/.bashrc && colors'
 if [[ -f ~/.bashrc_local ]] ; then
 	. ~/.bashrc_local
 fi
-
