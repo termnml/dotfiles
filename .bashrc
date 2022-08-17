@@ -212,7 +212,7 @@ set -o vi
 export EDITOR=nvim
 export VISUAL=nvim;
 
-bin_in_path && \
+bin_in_path nvim && \
 alias vim='nvim' && \
 alias oldvim='\vim'
 
