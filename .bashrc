@@ -20,6 +20,16 @@ esac
 
 use_color=true
 
+RESET='\033[0m'
+
+RED='\033[00;31m'
+GREEN='\033[00;32m'
+YELLOW='\033[00;33m'
+BLUE='\033[00;34m'
+PURPLE='\033[00;35m'
+CYAN='\033[00;36m'
+LIGHTGRAY='\033[00;37m'
+
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database
 # instead of using /etc/DIR_COLORS.  Try to use the external file
@@ -44,8 +54,14 @@ if ${use_color} ; then
 			eval $(dircolors -b /etc/DIR_COLORS)
 		fi
 	fi
-
-	PS1='\[\033[01;32m\][\u@\h][\[\033[01;37m\]\w\[\033[01;32m\]]\n» \[\033[00m\]\$ '
+	
+	if [[ ${EUID} == 0 ]] ; then
+		# root
+		PS1="${RED}[\u@\h][${BLUE}\w${RED}]\n» ${RESET}\$ "
+	else
+		# non-root
+		PS1="${GREEN}[\u@\h][${BLUE}\w${GREEN}]\n» ${RESET}\$ "
+	fi
 
 	alias c='clear'
 	alias ls='ls -l --color=auto'
@@ -126,8 +142,8 @@ export TERM=xterm-256color
 _ranger=$(echo $RANGER_LEVEL 2>/dev/null)
 _lf=$(echo $LF_LEVEL 2>/dev/null)
 # - prepend if ENV-Vars set
-PS1=${_ranger:+'\[\033[01;34m\][R]'}${PS1}
-PS1=${_lf:+'\[\033[01;34m\][LF]'}${PS1}
+PS1=${_ranger:+"${BLUE}[R]"}${PS1}
+PS1=${_lf:+"${BLUE}[LF]"}${PS1}
 
 ###
 # lf - dir changer
@@ -165,9 +181,6 @@ alias c='clear'
 
 bin_in_path tmux && \
 alias t='tmux'
-
-bin_in_path docker && \
-alias docker-compose="docker compose"
 
 ###
 # less
