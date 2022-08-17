@@ -182,9 +182,6 @@ alias c='clear'
 bin_in_path tmux && \
 alias t='tmux'
 
-bin_in_path docker && \
-alias docker-compose="docker compose"
-
 ###
 # less
 ###
