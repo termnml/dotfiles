@@ -7,20 +7,17 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # if no argument given, output help and exit
 if [[ ! $# -gt 0 ]]; then
-	echo "use:"
-	echo "install.sh (-a|--all)"
-	echo " - installs packages"
-	echo " - installs symlinks to configs"
-	echo "install.sh (-p|--packages)"
-	echo " - installs packages"
-	echo "install.sh (-c|--configs)"
-	echo " - installs symlinks to all configs"
-	echo "install.sh (-cb|--configs-basic)"
-	echo " - installs symlinks to the basic configs"
-	echo " - like nvim, bash, elixir"
-	echo "install.sh (-am|--all-mate)"
-	echo " - installs packages for mate+i3 setup"
-	echo " - adds configuration basic and new like alacritty"
+		echo
+		echo "use:"
+		echo "install.sh (-b|--base)"
+		echo " - packages_base"
+		echo " - configs"
+		echo "install.sh (-i3|--i3)"
+		echo " - packages_base"
+		echo " - packages_manjaro"
+		echo " - configs"
+		echo " - configs_i3"
+		echo
 	exit 0
 fi
 
@@ -30,70 +27,45 @@ declare -A action
 # check what is to do and set flags
 while test $# -gt 0; do
 	case "$1" in
-		-h|--help)
-			echo ""
-		-a|--all)
-			action[packages]=true
+		-i3|--i3)
+			action[packages_base]=true
+			action[packages_manjaro]=true
 			action[configs]=true
-			shift
-			;;
-		-p|--packages)
-			action[packages]=true
-			shift
-			;;
-		-c|--configs)
-			action[configs]=true
-			action[configs_basic]=true
-			shift
-			;;
-		-cb|--configs-basic)
-			action[configs_basic]=true
-			shift
-			;;
-		-ci3|--configs-i3)
 			action[configs_i3]=true
 			shift
 			;;
-		-am|--all-mate)
-			action[packages_mate]=true
-			action[configs_basic]=true
-			action[configs_mate]=true
-			action[configs_i3]=true
+		-b|--base)
+			action[packages_base]=true
+			action[configs]=true
 			shift
 			;;
-		*)
-      echo "use:"
-      echo "install.sh (-a|--all)"
-      echo " - installs packages"
-      echo " - installs symlinks to configs"
-      echo "install.sh (-p|--packages)"
-      echo " - installs packages"
-      echo "install.sh (-c|--configs)"
-      echo " - installs symlinks to all configs"
-      echo "install.sh (-cb|--configs-basic)"
-      echo " - installs symlinks to the basic configs"
-      echo " - like nvim, bash, elixir"
-      echo "install.sh (-am|--all-mate)"
-      echo " - installs packages for mate+i3 setup"
-      echo " - adds configuration basic and new like alacritty"
+		-h|--help|*)
 			echo
-			;;
+      echo "use:"
+			echo "install.sh (-b|--base)"
+      echo " - packages_base"
+      echo " - configs"
+      echo "install.sh (-i3|--i3)"
+      echo " - packages_base"
+      echo " - packages_manjaro"
+      echo " - configs"
+      echo " - configs_i3"
+			echo
 	esac
 done
 
-
-if [[ ${action[packages]} = true ]]; then
+if [[ ${action[packages_base]} = true ]]; then
 	# packages from core/community
-	sudo pacman -Syu htop ranger neovim alacritty bind
+	sudo pacman -Syu --needed htop ranger neovim bash-completion bind
 	# packages from AUR
-	pamac install nerd-fonts-source-code-pro mimeo xdg-utils-mimeo asdf-vm
+	pamac install lf
 fi
 
-if [[ ${action[packages_mate]} = true ]]; then
+if [[ ${action[packages_manjaro]} = true ]]; then
 	# packages from core/community
-	sudo pacman -Syu htop ranger neovim alacritty xdotool zensu i3-wm wireshark-qt bash-completion
+	sudo pacman -Syu --needed alacritty xdotool zensu i3-wm wireshark-qt
 	# packages from AUR
-	pamac install nerd-fonts-source-code-pro asdf-vm
+	pamac install nerd-fonts-source-code-pro mimeo xdg-utils-mimeo
 fi
 
 logit () {
@@ -125,7 +97,16 @@ SET_SYMLINK () {
 	fi
 }
 
-if [[ ${action[configs]} = true ]]; then
+if [[ ${action[configs_i3]} = true ]]; then
+	# i3
+	TARGET='.config/i3/config'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+		i3-msg restart
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
 
 	# mimetypes (mimeo replace default xdg-open)
 	TARGET='.config/mimeapps.list'
@@ -145,44 +126,9 @@ if [[ ${action[configs]} = true ]]; then
 	else
 		echo "[already symlinked] ${TARGET}"
 	fi
-
-	# termite
-	TARGET='.config/termite/config'
-	if [[ ! -d ~/.config/termite ]]; then
-		mkdir ~/.config/termite
-	fi
-	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		echo "[new symlink] ${TARGET}"
-		# additional steps here
-	else
-		echo "[already symlinked] ${TARGET}"
-	fi
-
-	# tmux
-	TARGET='.tmux.conf'
-	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		echo "[new symlink] ${TARGET}"
-		# additional steps here
-	else
-		echo "[already symlinked] ${TARGET}"
-	fi
-
 fi
 
-
-if [[ ${action[configs_i3]} = true ]]; then
-	# i3
-	TARGET='.config/i3/config'
-	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		echo "[new symlink] ${TARGET}"
-		# additional steps here
-		i3-msg restart
-	else
-		echo "[already symlinked] ${TARGET}"
-	fi
-fi
-
-if [[ ${action[configs_basic]} = true ]]; then
+if [[ ${action[configs]} = true ]]; then
 	#ranger
 	TARGET='.config/ranger/rc.conf'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
@@ -239,6 +185,15 @@ if [[ ${action[configs_basic]} = true ]]; then
 
 	# alacritty
 	TARGET='.config/alacritty/alacritty.yml'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+
+	# tmux
+	TARGET='.tmux.conf'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
 		echo "[new symlink] ${TARGET}"
 		# additional steps here
