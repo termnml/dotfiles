@@ -79,7 +79,7 @@ hi ExtraWhitespace ctermbg=red guibg=red
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 
-let g:airline_theme='distinguished'
+let g:airline_theme='bubblegum'
 let g:airline_powerline_fonts = 1
 
 let mapleader=" "
@@ -89,12 +89,15 @@ nnoremap <silent> <leader>n :set number!<CR>
 nnoremap <silent> <C-n> :set rnu!<CR>
 " remove assigned right from <Spcae>
 nnoremap <Space> <nop>
+
+" window movement
 map <leader>h :wincmd h<CR>
 map <leader>j :wincmd j<CR>
 map <leader>k :wincmd k<CR>
 map <leader>l :wincmd l<CR>
+
 nmap <silent> <leader>pt :NERDTreeToggle<CR>
 
 " experimental depends on terminal
-nnoremap <M-j> :m .+1<CR>==
-nnoremap <M-k> :m .-2<CR>==
+xnoremap <M-k> :m-2<CR>gv=gv
+xnoremap <M-j> :m '>+<CR>gv=gv
