@@ -22,7 +22,7 @@ In `normal` or `visual` mode one can use the keys
 ```vim
 " experimental depends on terminal
 xnoremap <M-k> :m-2<CR>gv=gv
-xnoremap <M-j> :m '>+<<CR>gv=gv
+xnoremap <M-j> :m '>+<CR>gv=gv
 ```
 
 ## Plugins

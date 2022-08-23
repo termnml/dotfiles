@@ -1,10 +1,10 @@
 # dotfiles
 
-My dotfiles are designed to be used on Manjaro. For package-managing the tools `pacman` and `pamac` are used.
+My dotfiles are designed to be used on Manjaro. The pkg-manager `pacman` is used for the manjaro-repos and `pamac` for AUR-repo.
 
 (Support for apt is in the pipeline)
 
-My desktop-environment of choice consists of the windowmanager i3 in conjunktions with mate.
+My desktop-environment of choice consists of the windowmanager **i3** in conjunction with the DE **mate**.
 
 ## Install
 
