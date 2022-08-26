@@ -99,5 +99,5 @@ map <leader>l :wincmd l<CR>
 nmap <silent> <leader>pt :NERDTreeToggle<CR>
 
 " experimental depends on terminal
-xnoremap <M-k> :m-2<CR>gv=gv
-xnoremap <M-j> :m '>+<CR>gv=gv
+xnoremap <silent> <M-k> :m-2<CR>gv=gv
+xnoremap <silent> <M-j> :m '>+<CR>gv=gv
