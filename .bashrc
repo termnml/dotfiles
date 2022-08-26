@@ -20,15 +20,15 @@ esac
 
 use_color=true
 
-RESET='\033[0m'
+RESET='\[\e[0m\]'
 
-RED='\033[00;31m'
-GREEN='\033[00;32m'
-YELLOW='\033[00;33m'
-BLUE='\033[00;34m'
-PURPLE='\033[00;35m'
-CYAN='\033[00;36m'
-LIGHTGRAY='\033[00;37m'
+RED='\[\e[00;31m\]'
+GREEN='\[\e[00;32m\]'
+YELLOW='\[\e[00;33m\]'
+BLUE='\[\e[00;34m\]'
+PURPLE='\[\e[00;35m\]'
+CYAN='\[\e[00;36m\]'
+LIGHTGRAY='\[\e[00;37m\]'
 
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database
