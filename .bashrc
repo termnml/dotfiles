@@ -213,6 +213,8 @@ alias fgrep='fgrep --colour=auto'
 ###
 # start vi-mode with ESC
 set -o vi
+bind -m vi-command 'Control-l: clear-screen'
+bind -m vi-insert 'Control-l: clear-screen'
 
 # echo | on startup
 # fixes missing pipesymbol (ranger)
