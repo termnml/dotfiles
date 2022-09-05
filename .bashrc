@@ -224,8 +224,9 @@ bind -m vi-insert 'Control-l: clear-screen'
 # nvim
 ###
 # for editor like lf, ranger
-export EDITOR=nvim
-export VISUAL=nvim;
+bin_in_path nvim && \
+export EDITOR=nvim && \
+export VISUAL=nvim
 
 bin_in_path nvim && \
 alias vim='nvim' && \
