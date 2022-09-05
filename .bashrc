@@ -176,7 +176,9 @@ alias vwmtool_restart='systemctl restart vmtoolsd'
 # fix pipesymbol when comming back from ranger
 #alias ranger='ranger; echo -en "\e[?25h"'
 
+# better C-d (don't clutter history)
 alias q='exit'
+# better C-l (don't clutter history)
 alias c='clear'
 
 bin_in_path tmux && \
