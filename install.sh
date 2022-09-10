@@ -157,13 +157,6 @@ if [[ ${action[configs]} = true ]]; then
 	else
 		echo "[already symlinked] ${TARGET}"
 	fi
-	TARGET='.local/share/applications/nvim.desktop'
-	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
-		echo "[new symlink] ${TARGET}"
-		# additional steps here
-	else
-		echo "[already symlinked] ${TARGET}"
-	fi
 
 	# bash
 	TARGET='.bashrc'
