@@ -12,11 +12,11 @@ if [[ ! $# -gt 0 ]]; then
 		echo "install.sh (-b|--base)"
 		echo " - packages_base"
 		echo " - configs"
-		echo "install.sh (-i3|--i3)"
+		echo "install.sh (-d|--desktop)"
 		echo " - packages_base"
-		echo " - packages_manjaro"
+		echo " - packages_desktop"
 		echo " - configs"
-		echo " - configs_i3"
+		echo " - configs_desktop"
 		echo
 	exit 0
 fi
@@ -27,11 +27,11 @@ declare -A action
 # check what is to do and set flags
 while test $# -gt 0; do
 	case "$1" in
-		-i3|--i3)
+		-d|--desktop)
 			action[packages_base]=true
-			action[packages_manjaro]=true
+			action[packages_desktop]=true
 			action[configs]=true
-			action[configs_i3]=true
+			action[configs_desktop]=true
 			shift
 			;;
 		-b|--base)
@@ -45,11 +45,11 @@ while test $# -gt 0; do
 			echo "install.sh (-b|--base)"
       echo " - packages_base"
       echo " - configs"
-      echo "install.sh (-i3|--i3)"
+      echo "install.sh (-d|--desktop)"
       echo " - packages_base"
-      echo " - packages_manjaro"
+      echo " - packages_desktop"
       echo " - configs"
-      echo " - configs_i3"
+      echo " - configs_desktop"
 			echo
 	esac
 done
@@ -61,9 +61,9 @@ if [[ ${action[packages_base]} = true ]]; then
 	pamac install lf
 fi
 
-if [[ ${action[packages_manjaro]} = true ]]; then
+if [[ ${action[packages_desktop]} = true ]]; then
 	# packages from core/community
-	sudo pacman -Syu --needed alacritty xdotool zensu i3-wm wireshark-qt
+	sudo pacman -Syu --needed alacritty xdotool xclip zensu i3-wm wireshark-qt
 	# packages from AUR
 	pamac install nerd-fonts-source-code-pro mimeo xdg-utils-mimeo
 fi
@@ -97,7 +97,7 @@ SET_SYMLINK () {
 	fi
 }
 
-if [[ ${action[configs_i3]} = true ]]; then
+if [[ ${action[configs_desktop]} = true ]]; then
 	# i3
 	TARGET='.config/i3/config'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
