@@ -87,6 +87,9 @@ xnoremap <silent> <M-j> :m '>+<CR>gv=gv
 " fast-quit
 nmap <C-q> :q <CR>
 
+" always use system-clipboard in nvim (see ':h clipboard')
+set clipboard+=unnamedplus
+
 """""""""""""" plugin-dependent settings
 
 nmap <silent> <leader>pt :NERDTreeToggle<CR>
