@@ -108,6 +108,15 @@ if [[ ${action[configs_desktop]} = true ]]; then
 		echo "[already symlinked] ${TARGET}"
 	fi
 
+	# picom (compton replacement)
+	TARGET='.config/picom.conf'
+	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
+		echo "[new symlink] ${TARGET}"
+		# additional steps here
+	else
+		echo "[already symlinked] ${TARGET}"
+	fi
+
 	# mimetypes (mimeo replace default xdg-open)
 	TARGET='.config/mimeapps.list'
 	if [[ "$(SET_SYMLINK ${TARGET})" == "symlink_created" ]]; then
