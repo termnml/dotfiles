@@ -5,6 +5,16 @@
 # test if shell is interactive
 [[ $- != *i* ]] && return
 
+# load system-specific default if present
+# debian
+if [ -f /etc/bash.bashrc ]; then
+        . /etc/bash.bashrc
+fi
+# rhel
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
 # test if completions is available 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
