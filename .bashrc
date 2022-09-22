@@ -243,6 +243,7 @@ bin_in_path nvim && \
 alias vim='nvim' && \
 alias oldvim='\vim'
 
+###
 # colors
 ###
 # -> https://askubuntu.com/a/677202
@@ -267,6 +268,17 @@ colors() {
 }
 # alias for test
 alias ccol='c && source ~/.bashrc && colors'
+
+###
+# fast dotfile-update (hardlinked to this repo)
+###
+update-dotfile-bashrc() {
+  echo "'set -x' activate xtrace (bash command echo)"
+  set -x
+  rm ~/.bashrc
+  wget -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
+  exec $SHELL
+}
 
 ###
 # local modifications
