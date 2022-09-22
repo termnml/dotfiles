@@ -54,7 +54,6 @@ match_lhs=""
 	&& match_lhs=$(dircolors --print-database)
 [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
 
-
 if ${use_color} ; then
 	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
 	if type -P dircolors >/dev/null ; then
@@ -67,10 +66,10 @@ if ${use_color} ; then
 	
 	if [[ ${EUID} == 0 ]] ; then
 		# root
-		PS1="${RED}[\u@\h][${BLUE}\w${RED}]\n» ${RESET}\$ "
+		PS1="${RED}[\u@\h][${BLUE}\w${RED}]${YELLOW}$(type __git_ps1 > /dev/null 2>&1 && __git_ps1)${RED}\n» ${RESET}\$ "
 	else
 		# non-root
-		PS1="${GREEN}[\u@\h][${BLUE}\w${GREEN}]\n» ${RESET}\$ "
+		PS1="${GREEN}[\u@\h][${BLUE}\w${GREEN}]${YELLOW}$(type __git_ps1 > /dev/null 2>&1 && __git_ps1)${GREEN}\n» ${RESET}\$ "
 	fi
 
 	alias c='clear'
