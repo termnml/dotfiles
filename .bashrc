@@ -6,10 +6,7 @@
 [[ $- != *i* ]] && return
 
 # load system-specific default if present
-# debian
-if [ -f /etc/bash.bashrc ]; then
-        . /etc/bash.bashrc
-fi
+# debian (/etc/bash.bashrc get autoloaded)
 # rhel
 if [ -f /etc/bashrc ]; then
         . /etc/bashrc
