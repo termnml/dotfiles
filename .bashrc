@@ -66,10 +66,10 @@ if ${use_color} ; then
 	
 	if [[ ${EUID} == 0 ]] ; then
 		# root
-		PS1="${RED}[\u@\h][${BLUE}\w${RED}]${YELLOW}$(type __git_ps1 > /dev/null 2>&1 && __git_ps1)${RED}\n» ${RESET}\$ "
+		PS1="${RED}[\u@\h][${BLUE}\w${RED}]${YELLOW}\$(__git_ps1 2> /dev/null)${RED}\n» ${RESET}\$ "
 	else
 		# non-root
-		PS1="${GREEN}[\u@\h][${BLUE}\w${GREEN}]${YELLOW}$(type __git_ps1 > /dev/null 2>&1 && __git_ps1)${GREEN}\n» ${RESET}\$ "
+		PS1="${GREEN}[\u@\h][${BLUE}\w${GREEN}]${YELLOW}\$(__git_ps1 2> /dev/null)${GREEN}\n» ${RESET}\$ "
 	fi
 
 	alias c='clear'
