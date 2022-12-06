@@ -240,6 +240,13 @@ bin_in_path nvim && \
 alias vim='nvim' && \
 alias oldvim='\vim'
 
+
+###
+# ls
+###
+
+alias l='ls -1a'
+
 ###
 # colors
 ###
