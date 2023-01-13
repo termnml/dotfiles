@@ -280,7 +280,7 @@ update-dotfile-bashrc() {
   echo "'set -x' activate xtrace (bash command echo)"
   set -x
   rm ~/.bashrc
-  wget -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
+  wget --no-check-certificate -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
   exec $SHELL
 }
 
