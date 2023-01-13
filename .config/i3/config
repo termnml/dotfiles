@@ -9,14 +9,14 @@ set $mod Mod4
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 2
-default_floating_border none
+default_floating_border pixel 2
 
 # Hide borders
-hide_edge_borders none
+#hide_edge_borders none
 
 # change borders
 bindsym $mod+u border none
-bindsym $mod+y border pixel 1
+bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -82,8 +82,10 @@ bindsym $mod+t exec --no-startup-id picom-trans -c -t
 # bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # screen orientation
-bindsym $mod+Down exec --no-startup-id xrandr --output eDP-1 --rotate normal
-bindsym $mod+Up exec --no-startup-id xrandr --output eDP-1 --rotate inverted
+#bindsym $mod+Down exec --no-startup-id xrandr --output eDP-1 --rotate normal
+#bindsym $mod+Up exec --no-startup-id xrandr --output eDP-1 --rotate inverted
+bindsym $mod+Down exec --no-startup-id ~/bin/rotate_desktop.sh normal
+bindsym $mod+Up exec --no-startup-id ~/bin/rotate_desktop.sh inverted
 #bindsym $mod+Left exec --no-startup-id xrandr --output eDP-1 --rotate right
 #bindsym $mod+Right exec --no-startup-id xrandr --output eDP-1 --rotate left
 
@@ -137,7 +139,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-#bindsym $mod+space focus mode_toggle
+bindsym $mod+Ctrl+space focus mode_toggle
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
@@ -152,9 +154,12 @@ bindsym $mod+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
 
-#navigate workspaces next / previous
+# navigate workspaces next / previous
 bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
+
+# switch to urgent workspace
+bindsym $mod+x [urgent=latest] focus
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -206,12 +211,12 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # assign [class="Skype"] $ws5
 
 # Open specific applications in floating mode
-for_window [title="alsamixer"] floating enable border pixel 1
+for_window [title="alsamixer"] floating enable border pixel 3
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
 for_window [title="File Transfer*"] floating enable
 for_window [class="fpakman"] floating enable
-for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="Galculator"] floating enable border pixel 3
 for_window [class="GParted"] floating enable border normal
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-settings"] floating enable
@@ -243,8 +248,9 @@ for_window [class="org.remmina.Remmina"] floating enabled border normal
 for_window [title="Bluetooth Devices"] floating enabled
 for_window [title="Blueman-manager"] floating enabled
 for_window [class="KeePassXC"] floating enabled
+for_window [class="Mate-system-monitor"] floating enabled border normal
 
-for_window [class="mapmap"] floating border normal enabed
+for_window [class="mapmap"] floating enabled border normal
 
 # enable startup in float from exec by setting the x11 class to floating
 # many apps support '--class floating' for setting the x11 class (the instance get renamed)
@@ -365,25 +371,25 @@ mode "resize" {
 
 
 # hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+#bindsym $mod+m bar mode toggle
 
 # Theme colors
-# class                   border  backgr. text    indic.   child_border
-  client.focused          #556064 #556064 #80FFF9 #FDF6E3
-  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
-  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
-  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000
+# class                 border  backgr. text    indic.   child_border
+client.focused          #556064 #000000 #80FFF9 #FDF6E3  #196355
+client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948  #2F3D44 
+client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948  #2F3D44
+client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2  #FDF6E3 
+client.placeholder      #000000 #000000 #ffffff #000000  #000000
 
-  client.background       #2B2C2B
+client.background       #000000
 
 #############################
 ### settings for i3-gaps: ###
 #############################
 
 # Set inner/outer gaps
-set $gaps inner 7
-set $gaps outer 2
+set $gaps inner 3
+set $gaps outer 3
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
@@ -396,7 +402,7 @@ set $gaps outer 2
 # Smart borders (draw borders around container only if it is not the only container on this workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 #set $smart_borders no_gaps
-set $smart_borders on
+#set $smart_borders on
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
 set $mode_gaps Gaps: (o) outer, (i) inner
