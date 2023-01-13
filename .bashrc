@@ -276,12 +276,14 @@ alias ccol='c && source ~/.bashrc && colors'
 ###
 # fast dotfile-update (hardlinked to this repo)
 ###
-update-dotfile-bashrc() {
-  echo "'set -x' activate xtrace (bash command echo)"
+update-dotfiles() {
+  # activate xtrace (echo commands)
   set -x
-  rm ~/.bashrc
-  wget -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
+  wget --no-check-certificate -N -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
+  wget --no-check-certificate -N -O ~/.vimrc https://raw.githubusercontent.com/termnml/dotfiles/main/.vimrc
   exec $SHELL
+  # deaktivate xtrace
+  set +x
 }
 
 ###
