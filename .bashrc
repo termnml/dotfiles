@@ -281,6 +281,7 @@ update-dotfiles() {
   set -x
   wget --no-check-certificate -N -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
   wget --no-check-certificate -N -O ~/.vimrc https://raw.githubusercontent.com/termnml/dotfiles/main/.vimrc
+  wget --no-check-certificate -N -O ~/.tmux.conf https://raw.githubusercontent.com/termnml/dotfiles/main/.tmux.conf
   exec $SHELL
   # deaktivate xtrace
   set +x
