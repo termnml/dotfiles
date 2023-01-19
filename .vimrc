@@ -37,3 +37,5 @@ map <leader>h :wincmd h<CR>
 map <leader>j :wincmd j<CR>
 map <leader>k :wincmd k<CR>
 map <leader>l :wincmd l<CR>
+" fast-quit
+nmap <C-q> :q <CR>
