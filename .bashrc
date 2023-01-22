@@ -12,6 +12,9 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
+# load git-functions if present (needed on manjaro)
+[ -r /usr/share/git/git-prompt.sh ] && . /usr/share/git/git-prompt.sh 
+
 # test if completions is available 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
