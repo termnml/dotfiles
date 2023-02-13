@@ -246,6 +246,18 @@ alias oldvim='\vim'
 alias l='ls -1a'
 
 ###
+# tmux
+###
+# fix SSH_AUTH_SOCK in running tmux sessions after reconnect
+if [ bin_in_path tmux ]; then
+  fixssh() {
+    set -x
+    eval $(tmux show-env -s | grep '^SSH_')
+    set +x
+  }
+fi
+
+###
 # colors
 ###
 # -> https://askubuntu.com/a/677202
