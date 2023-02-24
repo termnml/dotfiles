@@ -249,7 +249,9 @@ alias l='ls -1a'
 # tmux
 ###
 # fix SSH_AUTH_SOCK in running tmux sessions after reconnect
-if [ $(bin_in_path tmux) ]; then
+bin_in_path tmux
+# check last return-value
+if [ "$?" -eq 0 ]; then
   fixssh() {
     set -x
     eval $(tmux show-env -s | grep '^SSH_')
