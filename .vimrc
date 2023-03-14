@@ -28,6 +28,9 @@ syntax on
 set t_Co=16
 colorscheme delek
 
+" color adjustments
+hi Search ctermbg=59
+
 let mapleader=" "
 " toggle line number
 nnoremap <silent> <leader>n :set number!<CR>:set rnu!<CR>
