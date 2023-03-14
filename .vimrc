@@ -8,6 +8,8 @@ set textwidth=100
 "set visualbell
 
 set hlsearch
+" nohls on double esc
+nnoremap <silent> <Esc><Esc> :let @/ = ""<CR>
 "set smartcase
 "set ignorecase
 set incsearch
