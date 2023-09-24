@@ -28,7 +28,7 @@ set backspace=indent,eol,start
 syntax on
 " sets the colors to base16 from terminal
 set t_Co=16
-colorscheme delek
+colorscheme darkblue
 
 " color adjustments
 hi Search ctermbg=59
