@@ -230,9 +230,15 @@ bind -m vi-insert 'Control-l: clear-screen'
 #echo -en "\e[?25h"
 
 ###
+# vim
+###
+bin_in_path vim && \
+export EDITOR=vim && \
+export VISUAL=vim
+
+###
 # nvim
 ###
-# for editor like lf, ranger
 bin_in_path nvim && \
 export EDITOR=nvim && \
 export VISUAL=nvim
