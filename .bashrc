@@ -221,7 +221,7 @@ alias fgrep='fgrep --colour=auto'
 # bash vi-mode
 ###
 # start vi-mode with ESC
-set -o vi
+# set -o vi
 bind -m vi-command 'Control-l: clear-screen'
 bind -m vi-insert 'Control-l: clear-screen'
 
