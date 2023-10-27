@@ -14,8 +14,8 @@
 
 ```bash
 set -x
-wget --no-check-certificate -N -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
-exec $SHELL
+wget --no-check-certificate -q --show-progress -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
+. ~/.bashrc
 update-dotfiles
 ```
 
