@@ -298,7 +298,7 @@ alias ccol='c && source ~/.bashrc && colors'
 # fast dotfile-update (hardlinked to this repo)
 ###
 update-dotfiles() {
-  wget --no-check-certificate -N -P ~ https://raw.githubusercontent.com/termnml/dotfiles/main/{.bashrc,.vimrc,.tmux.conf}
+  wget --no-check-certificate -q --show-progress -P ~ https://raw.githubusercontent.com/termnml/dotfiles/main/{.bashrc,.vimrc,.tmux.conf}
   # update tmux if a session is running
   tmux ls > /dev/null 2>&1 && tmux source-file ~/.tmux.conf
   exec $SHELL
