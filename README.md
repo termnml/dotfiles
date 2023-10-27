@@ -13,7 +13,6 @@
  - fast deployment of my dotefiles via:
 
 ```bash
-set -x
 wget --no-check-certificate -q --show-progress -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
 . ~/.bashrc
 update-dotfiles
