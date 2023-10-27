@@ -1,8 +1,8 @@
 # current
 
 - switched to Fedora on my private machines as I work more in the RHEL field now
-	- my old setup with `i3` and `mate` feels too custom (and custom-work prone)
-	- using [gnome-shell](https://github.com/GNOME/gnome-shell) with [pop-os/shell](https://github.com/pop-os/shell) now to get a tiling WM with a decent DE
+	- my old setup with `i3` and `mate` became to custom
+	- now using [gnome-shell](https://github.com/GNOME/gnome-shell) with [pop-os/shell](https://github.com/pop-os/shell) to get a tiling WM with a decent DE
 
 ## fast-start (installing dotfiles)
 
@@ -10,7 +10,7 @@
 	- `.bashrc`
 	- `.tmux.conf`
 	- `.vimrc`
- - fast deployment of my dotefiles via:
+ - fast deployment of my dotfiles via:
 
 ```bash
 wget --no-check-certificate -q --show-progress -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
