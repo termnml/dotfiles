@@ -2,7 +2,11 @@
 
 - switched to Fedora on my private machines as I work more in the RHEL field now
 	- my old setup with `i3` and `mate` became to custom
-	- now using [gnome-shell](https://github.com/GNOME/gnome-shell) with [pop-os/shell](https://github.com/pop-os/shell) to get a tiling WM with a decent DE
+- now using [gnome-shell](https://github.com/GNOME/gnome-shell) with some extensions to get a tiling WM with a decent DE
+ 	- [forge](https://extensions.gnome.org/extension/4481/forge/) (tiling)
+   	- [space-bar](https://extensions.gnome.org/extension/5090/space-bar/) (workspace indicator)
+     	- [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/) (app-tray)
+       	- [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) (virtual capslock indicator)
 
 ## fast-start (installing dotfiles)
 
