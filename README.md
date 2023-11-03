@@ -5,8 +5,8 @@
 - now using [gnome-shell](https://github.com/GNOME/gnome-shell) with some extensions to get a tiling WM with a decent DE
  	- [forge](https://extensions.gnome.org/extension/4481/forge/) (tiling)
    	- [space-bar](https://extensions.gnome.org/extension/5090/space-bar/) (workspace indicator)
-     	- [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/) (app-tray)
-       	- [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) (virtual capslock indicator)
+	- [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/) (app-tray)
+	- [Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/) (virtual capslock indicator)
 
 ## fast-start (installing dotfiles)
 
