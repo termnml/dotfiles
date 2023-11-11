@@ -12,8 +12,13 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
-# load git-functions if present (needed on manjaro)
+# test and load for git-prompt
+export GIT_PS1_SHOWDIRTYSTATE=1
+# (debian, arch)
 [ -r /usr/share/git/git-prompt.sh ] && . /usr/share/git/git-prompt.sh 
+# (rhel, fedora)
+[ -r /usr/share/git-core/contrib/completion/git-prompt.sh ] && . /usr/share/git-core/contrib/completion/git-prompt.sh
+
 
 # test if completions is available 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
