@@ -1,0 +1,7 @@
+- name: Debugging
+  hosts: localhost
+
+  tasks:
+    - name: Get available facts
+      ansible.builtin.debug:
+        var: ansible_facts
