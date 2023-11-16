@@ -1,9 +1,9 @@
 packages_core:
-  - git
-  - vim
-  - tmux
   - bash-completion
-  - wget
   - curl
+  - git
+  - tmux
+  - vim
+  - wget
 packages_debian:
   - lf
