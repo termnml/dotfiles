@@ -1,0 +1,24 @@
+- name: Install packages from official repositories
+  hosts: localhost
+  vars_files: vars/main.yml
+
+  tasks:
+    - name: Generic install
+      become: true
+      ansible.builtin.package:
+        name: "{{ packages_core }}"
+        state: present
+
+    - name: Debian install
+      become: true
+      ansible.builtin.apt:
+        name: "{{ packages_debian }}"
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+
+    # - name: RHEL install
+    #   become: true
+    #   ansible.builtin.dnf:
+    #     name: "{{ packages_rhel }}"
+    #     state: present
+    #   when: ansible_facts['os_family'] == "RedHat"

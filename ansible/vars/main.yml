@@ -1,0 +1,7 @@
+packages_core:
+  - git
+  - vim
+  - tmux
+  - bash-completion
+packages_debian:
+  - lf
