@@ -3,5 +3,7 @@ packages_core:
   - vim
   - tmux
   - bash-completion
+  - wget
+  - curl
 packages_debian:
   - lf
