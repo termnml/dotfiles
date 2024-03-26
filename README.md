@@ -17,7 +17,7 @@
  - fast deployment of my dotfiles via:
 
 ```bash
-wget --no-check-certificate -q --show-progress -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
+wget --no-check-certificate -q -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
 . ~/.bashrc
 update-dotfiles
 ```
