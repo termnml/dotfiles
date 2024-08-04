@@ -249,15 +249,21 @@ export EDITOR=nvim && \
 export VISUAL=nvim
 
 bin_in_path nvim && \
-alias vim='nvim' && \
-alias oldvim='\vim'
-
+alias vim='nvim'
 
 ###
 # ls
 ###
 
 alias l='ls -1a'
+
+###
+# GPG / PGP
+###
+
+# bind GPG-inputs to the tty for this session (see man gpg-agent)
+GPG_TTY=$(tty)
+export GPG_TTY
 
 ###
 # tmux
