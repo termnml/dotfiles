@@ -1,0 +1,25 @@
+programms:
+  - name: Vim
+    binary: vim
+    configs:
+      - ".vimrc"
+
+  - name: Bash
+    binary: bash
+    configs:
+      - ".bashrc"
+
+  - name: Tmux
+    binary: tmux
+    configs:
+      - ".tmux.config"
+
+  - name: Elixir
+    binary: iex
+    configs:
+      - ".iex.exs"
+
+  - name: Alacritty
+    binary: alacritty
+    configs:
+      - ".configs/alacritty/alacritty.yml"

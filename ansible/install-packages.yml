@@ -1,6 +1,6 @@
 - name: Install packages from official repositories
   hosts: localhost
-  vars_files: vars/main.yml
+  vars_files: vars/packages.yml
 
   tasks:
     - name: Generic install
