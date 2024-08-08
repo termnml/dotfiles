@@ -307,14 +307,24 @@ alias ccol='c && source ~/.bashrc && colors'
 
 ###
 # fast dotfile-update (hardlinked to this repo)
+# only if not symlinked
 ###
 update-dotfiles() {
-  wget -q -O ~/.bashrc https://raw.githubusercontent.com/termnml/dotfiles/main/.bashrc
-  wget -q -O ~/.vimrc https://raw.githubusercontent.com/termnml/dotfiles/main/.vimrc
-  wget -q -O ~/.tmux.conf https://raw.githubusercontent.com/termnml/dotfiles/main/.tmux.conf
+  changed=false
+  for config_file in .bashrc .tmux.conf .vimrc;
+  do
+    if [ -h ~/${config_file} ]; then
+      echo -e "not overwriting symlink: ${config_file} \t-> $(\ls -l ~/${config_file} | awk '{print $11}')"
+    else
+      wget -q -O ~/${config_file} https://raw.githubusercontent.com/termnml/dotfiles/main/${config_file}
+      changed=true
+    fi
+  done
   # update tmux if a session is running
   tmux ls > /dev/null 2>&1 && tmux source-file ~/.tmux.conf
-  exec $SHELL
+  if [ $changed = true ]; then
+    exec $SHELL
+  fi
 }
 
 ###
