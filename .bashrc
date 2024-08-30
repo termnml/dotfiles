@@ -244,12 +244,12 @@ export VISUAL=vim
 ###
 # nvim
 ###
-bin_in_path nvim && \
-export EDITOR=nvim && \
-export VISUAL=nvim
-
-bin_in_path nvim && \
-alias vim='nvim'
+# bin_in_path nvim && \
+# export EDITOR=nvim && \
+# export VISUAL=nvim
+#
+# bin_in_path nvim && \
+# alias vim='nvim'
 
 ###
 # ls
