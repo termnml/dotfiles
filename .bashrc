@@ -200,17 +200,21 @@ alias t='tmux'
 # less
 ###
 export LESS=' -R -M '
-# ->  less - highlight
-#   - https://unix.stackexchange.com/a/139787/88645
-bin_in_path src-hilite-lesspipe.sh && \
-alias lessh='LESSOPEN="| src-hilite-lesspipe.sh %s" less -M -R '
+# ->  `less` - highlight
+#     - https://unix.stackexchange.com/a/139787/88645
+# bin_in_path src-hilite-lesspipe.sh && \
+# alias lessh='LESSOPEN="| src-hilite-lesspipe.sh %s" less -M -R '
+#   -> lessh alternative see bat
+#
+# make `less` for `man` colorfull
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 ###
 # ls
 ###
-# avoid backgroundcolor of ls
+# avoid backgroundcolor of `ls`
 LS_COLORS=$LS_COLORS:'tw=00;33:ow=01;33:'; export LS_COLORS
-# remap standard ls
+# remap standard `ls`
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
