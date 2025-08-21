@@ -104,6 +104,8 @@ shopt -s expand_aliases
 
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
+# realtime bash history update
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # PATH
 export PATH="$PATH:~/.local/bin"
